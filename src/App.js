@@ -13,12 +13,25 @@ function App() {
   } = useForm();
 
   const fetch = async (dd) => {
+    setsongs([])
     const { data } = await axios.get(
       `https://saavn.me/search/songs?query=${dd.name}`
     );
     setsongs(data.data.results);
   };
 
+  const base = async (dd) => {
+    const { data } = await axios.get(
+      `https://saavn.me/search/songs?query=rockstar`
+    );
+    
+    setsongs(data.data.results);
+
+  };
+
+  useEffect(() => {
+    base();
+  }, [])
    
   return (
     <div className="App">
