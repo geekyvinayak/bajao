@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import "./App.css";
+import Que from "./Que";
 function App() {
   const [songs, setsongs] = useState([]);
+
+  const [que,setque] = useState([])
 
   const {
     register,
@@ -32,7 +35,12 @@ function App() {
   useEffect(() => {
     base();
   }, [])
+
    
+  const Addtoque = (ele)=>{
+    setque([...que,ele])
+  }
+
   return (
     <div className="App">
       <h1>Hello</h1>
@@ -54,17 +62,22 @@ function App() {
             <p class="text-body">{ele.primaryArtists}</p>
           </div>
           <div class="card-footer">
-              {" "}
-              <audio controls>
-                <source src={ele.downloadUrl[ele.downloadUrl.length - 1].link} type="audio/ogg" />
-              </audio>
+              <button onClick={()=>Addtoque(ele)}>Add to Que</button>
           </div>
         </div>
       ))}
       </div>
+      <Que list={que} setlist={setque}/>
       {/* {JSON.stringify(songs)} */}
     </div>
   );
 }
 
 export default App;
+
+{/* <div class="card-footer">
+              {" "}
+              <audio controls>
+                <source src={ele.downloadUrl[ele.downloadUrl.length - 1].link} type="audio/ogg" />
+              </audio>
+          </div> */}
